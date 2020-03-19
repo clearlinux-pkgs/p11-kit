@@ -1,2 +1,6 @@
 mv %{buildroot}/usr/bin/trust %{buildroot}/usr/bin/p11-trust
 install -m 0755 trust-stub %{buildroot}/usr/bin/trust
+# needed to prevent ldconfig from making a weird symlink:
+ln -sf pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/
+# needed for Chrome's NSS implementation:
+ln -sf pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/libnssckbi.so

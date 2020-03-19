@@ -6,7 +6,7 @@
 #
 Name     : p11-kit
 Version  : 0.23.15
-Release  : 57
+Release  : 58
 URL      : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz
 Source0  : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz
 Source1  : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz.sig
@@ -159,7 +159,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1584638327
+export SOURCE_DATE_EPOCH=1584639581
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
@@ -187,7 +187,7 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1584638327
+export SOURCE_DATE_EPOCH=1584639581
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/p11-kit
 cp %{_builddir}/p11-kit-0.23.15/COPYING %{buildroot}/usr/share/package-licenses/p11-kit/6745330da3e7bde244b20b96a42eae659644e731
@@ -207,8 +207,6 @@ rm -f %{buildroot}%{_libdir}/p11-kit/trust-extract-compat
 ## install_append content
 mv %{buildroot}/usr/bin/trust %{buildroot}/usr/bin/p11-trust
 install -m 0755 trust-stub %{buildroot}/usr/bin/trust
-# needed to prevent ldconfig from making a weird symlink:
-ln -sf pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/
 # needed for Chrome's NSS implementation:
 ln -sf pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/libnssckbi.so
 ## install_append end
@@ -292,7 +290,6 @@ ln -sf pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/libnssckbi.so
 /usr/lib64/libp11-kit.so.0
 /usr/lib64/libp11-kit.so.0.3.0
 /usr/lib64/p11-kit-proxy.so
-/usr/lib64/p11-kit-trust.so
 /usr/lib64/pkcs11/p11-kit-client.so
 /usr/lib64/pkcs11/p11-kit-trust.so
 

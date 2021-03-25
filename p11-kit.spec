@@ -6,7 +6,7 @@
 #
 Name     : p11-kit
 Version  : 0.23.15
-Release  : 59
+Release  : 60
 URL      : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz
 Source0  : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz
 Source1  : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz.sig
@@ -31,12 +31,15 @@ BuildRequires : glibc-libc32
 BuildRequires : gtk-doc
 BuildRequires : intltool-dev
 BuildRequires : pkg-config
+BuildRequires : pkgconfig(32glib-2.0)
 BuildRequires : pkgconfig(32libffi)
 BuildRequires : pkgconfig(32libsystemd)
 BuildRequires : pkgconfig(32libtasn1)
+BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(libffi)
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(libtasn1)
+BuildRequires : systemd-dev
 Patch1: 0001-Modify-token-tests-to-reflect-the-mockroot-permissio.patch
 Patch2: 0002-Added-P11_TRUST_PATHS-to-override-via-env.patch
 Patch3: 0003-Use-p11-trust-instead-of-trust.patch
@@ -159,11 +162,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1584639581
+export SOURCE_DATE_EPOCH=1616693887
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
+export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
+export FFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
 %configure --disable-static --with-trust-paths=/var/cache/ca-certs --with-hash-impl=internal
 make  %{?_smp_mflags}
@@ -182,12 +185,12 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 cd ../build32;
-make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1584639581
+export SOURCE_DATE_EPOCH=1616693887
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/p11-kit
 cp %{_builddir}/p11-kit-0.23.15/COPYING %{buildroot}/usr/share/package-licenses/p11-kit/6745330da3e7bde244b20b96a42eae659644e731

@@ -6,7 +6,7 @@
 #
 Name     : p11-kit
 Version  : 0.23.15
-Release  : 60
+Release  : 61
 URL      : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz
 Source0  : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz
 Source1  : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz.sig

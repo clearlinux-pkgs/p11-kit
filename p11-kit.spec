@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xD605848ED7E69871 (ueno@gnu.org)
 #
 Name     : p11-kit
-Version  : 0.23.15
-Release  : 61
-URL      : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz
-Source0  : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz
-Source1  : https://github.com/p11-glue/p11-kit/releases/download/0.23.15/p11-kit-0.23.15.tar.gz.sig
+Version  : 0.23.22
+Release  : 63
+URL      : https://github.com/p11-glue/p11-kit/releases/download/0.23.22/p11-kit-0.23.22.tar.xz
+Source0  : https://github.com/p11-glue/p11-kit/releases/download/0.23.22/p11-kit-0.23.22.tar.xz
+Source1  : https://github.com/p11-glue/p11-kit/releases/download/0.23.22/p11-kit-0.23.22.tar.xz.sig
 Summary  : Library and proxy module for properly loading and sharing PKCS#11 modules.
 Group    : Development/Tools
 License  : BSD-3-Clause
@@ -21,6 +21,7 @@ Requires: p11-kit-license = %{version}-%{release}
 Requires: p11-kit-services = %{version}-%{release}
 Requires: ca-certs
 Requires: findutils
+BuildRequires : buildreq-meson
 BuildRequires : ca-certs
 BuildRequires : findutils
 BuildRequires : gcc-dev32
@@ -39,14 +40,12 @@ BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(libffi)
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(libtasn1)
-BuildRequires : systemd-dev
-Patch1: 0001-Modify-token-tests-to-reflect-the-mockroot-permissio.patch
-Patch2: 0002-Added-P11_TRUST_PATHS-to-override-via-env.patch
-Patch3: 0003-Use-p11-trust-instead-of-trust.patch
+Patch1: 0001-Added-P11_TRUST_PATHS-to-override-via-env.patch
+Patch2: 0002-Use-p11-trust-instead-of-trust.patch
 
 %description
-# P11-KIT
-[![Build Status](https://travis-ci.org/p11-glue/p11-kit.svg?branch=master)](https://travis-ci.org/p11-glue/p11-kit) [![Coverage Status](https://img.shields.io/coveralls/p11-glue/p11-kit.svg)](https://coveralls.io/r/p11-glue/p11-kit) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1627/badge)](https://bestpractices.coreinfrastructure.org/en/projects/1627)
+# p11-kit
+[![Build Status](https://travis-ci.org/p11-glue/p11-kit.svg?branch=master)](https://travis-ci.org/p11-glue/p11-kit) [![Coverage Status](https://img.shields.io/coveralls/p11-glue/p11-kit.svg)](https://coveralls.io/r/p11-glue/p11-kit) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1627/badge)](https://bestpractices.coreinfrastructure.org/en/projects/1627) [![Total alerts](https://img.shields.io/lgtm/alerts/g/p11-glue/p11-kit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/p11-glue/p11-kit/alerts/) [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/p11-glue/p11-kit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/p11-glue/p11-kit/context:cpp)
 
 %package bin
 Summary: bin components for the p11-kit package.
@@ -148,13 +147,12 @@ services components for the p11-kit package.
 
 
 %prep
-%setup -q -n p11-kit-0.23.15
-cd %{_builddir}/p11-kit-0.23.15
+%setup -q -n p11-kit-0.23.22
+cd %{_builddir}/p11-kit-0.23.22
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 pushd ..
-cp -a p11-kit-0.23.15 build32
+cp -a p11-kit-0.23.22 build32
 popd
 
 %build
@@ -162,12 +160,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1616693887
+export SOURCE_DATE_EPOCH=1617906207
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
-export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
-export FFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
+export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static --with-trust-paths=/var/cache/ca-certs --with-hash-impl=internal
 make  %{?_smp_mflags}
 
@@ -190,10 +188,10 @@ cd ../build32;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1616693887
+export SOURCE_DATE_EPOCH=1617906207
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/p11-kit
-cp %{_builddir}/p11-kit-0.23.15/COPYING %{buildroot}/usr/share/package-licenses/p11-kit/6745330da3e7bde244b20b96a42eae659644e731
+cp %{_builddir}/p11-kit-0.23.22/COPYING %{buildroot}/usr/share/package-licenses/p11-kit/6745330da3e7bde244b20b96a42eae659644e731
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]

@@ -1,7 +1,6 @@
-0.23.15
+0.23.22
 gtk-doc
 intltool-dev
 pkg-config
 pkgconfig(32glib-2.0)
 pkgconfig(glib-2.0)
-systemd-dev

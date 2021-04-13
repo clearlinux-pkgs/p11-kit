@@ -1,4 +1,8 @@
 mv %{buildroot}/usr/bin/trust %{buildroot}/usr/bin/p11-trust
 install -m 0755 trust-stub %{buildroot}/usr/bin/trust
-# needed for Chrome's NSS implementation:
-ln -sf pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/libnssckbi.so
+# The libnssckbi.so alias for p11-kit-trust.so is needed for Chrome's NSS
+# implementation. Note that "p11-kit-trust.so" is the SONAME, so the symlink
+# chain must be libnssckbi.so -> p11-kit-trust.so -> pkcs11/p11-kit-trust.so to
+# satisfy ldconfig rules.
+ln -s p11-kit-trust.so %{buildroot}/usr/lib64/libnssckbi.so
+ln -s pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/

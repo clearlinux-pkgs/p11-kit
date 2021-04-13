@@ -6,7 +6,7 @@
 #
 Name     : p11-kit
 Version  : 0.23.22
-Release  : 63
+Release  : 64
 URL      : https://github.com/p11-glue/p11-kit/releases/download/0.23.22/p11-kit-0.23.22.tar.xz
 Source0  : https://github.com/p11-glue/p11-kit/releases/download/0.23.22/p11-kit-0.23.22.tar.xz
 Source1  : https://github.com/p11-glue/p11-kit/releases/download/0.23.22/p11-kit-0.23.22.tar.xz.sig
@@ -160,7 +160,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1617906207
+export SOURCE_DATE_EPOCH=1618351561
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -188,7 +188,7 @@ cd ../build32;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1617906207
+export SOURCE_DATE_EPOCH=1618351561
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/p11-kit
 cp %{_builddir}/p11-kit-0.23.22/COPYING %{buildroot}/usr/share/package-licenses/p11-kit/6745330da3e7bde244b20b96a42eae659644e731
@@ -208,8 +208,12 @@ rm -f %{buildroot}%{_libdir}/p11-kit/trust-extract-compat
 ## install_append content
 mv %{buildroot}/usr/bin/trust %{buildroot}/usr/bin/p11-trust
 install -m 0755 trust-stub %{buildroot}/usr/bin/trust
-# needed for Chrome's NSS implementation:
-ln -sf pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/libnssckbi.so
+# The libnssckbi.so alias for p11-kit-trust.so is needed for Chrome's NSS
+# implementation. Note that "p11-kit-trust.so" is the SONAME, so the symlink
+# chain must be libnssckbi.so -> p11-kit-trust.so -> pkcs11/p11-kit-trust.so to
+# satisfy ldconfig rules.
+ln -s p11-kit-trust.so %{buildroot}/usr/lib64/libnssckbi.so
+ln -s pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/
 ## install_append end
 
 %files
@@ -291,6 +295,7 @@ ln -sf pkcs11/p11-kit-trust.so %{buildroot}/usr/lib64/libnssckbi.so
 /usr/lib64/libp11-kit.so.0
 /usr/lib64/libp11-kit.so.0.3.0
 /usr/lib64/p11-kit-proxy.so
+/usr/lib64/p11-kit-trust.so
 /usr/lib64/pkcs11/p11-kit-client.so
 /usr/lib64/pkcs11/p11-kit-trust.so
 

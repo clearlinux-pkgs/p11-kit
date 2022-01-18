@@ -54,6 +54,10 @@ option('gtk_doc', type : 'boolean',
        value : false,
        description : 'Build documentation using gtk-doc')
 
+option('glib_prefix', type : 'string',
+       value : '',
+       description : 'GLib installed prefix, used for gtk-doc, taken from pkg-config if undefined')
+
 option('man', type : 'boolean',
        value : false,
        description : 'Build manpages using xsltproc')
@@ -65,3 +69,11 @@ option('nls', type : 'boolean',
 option('test', type : 'boolean',
        value : true,
        description : 'Enable building test programs')
+
+option('rpc_min', type : 'integer',
+       min : 0, max : 0, value : 0,
+       description : 'Minimum RPC protocol version we support')
+
+option('rpc_max', type : 'integer',
+       min : 0, max : 0, value : 0,
+       description : 'Maximum RPC protocol version we support')

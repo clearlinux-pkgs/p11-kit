@@ -6,7 +6,7 @@
 #
 Name     : p11-kit
 Version  : 0.24.1
-Release  : 69
+Release  : 70
 URL      : https://github.com/p11-glue/p11-kit/releases/download/0.24.1/p11-kit-0.24.1.tar.xz
 Source0  : https://github.com/p11-glue/p11-kit/releases/download/0.24.1/p11-kit-0.24.1.tar.xz
 Source1  : https://github.com/p11-glue/p11-kit/releases/download/0.24.1/p11-kit-0.24.1.tar.xz.sig
@@ -20,7 +20,7 @@ Requires: p11-kit-libexec = %{version}-%{release}
 Requires: p11-kit-license = %{version}-%{release}
 Requires: p11-kit-services = %{version}-%{release}
 Requires: ca-certs
-Requires: findutils
+Requires: findutils-bin
 BuildRequires : buildreq-meson
 BuildRequires : gcc-dev32
 BuildRequires : gcc-libgcc32
@@ -158,7 +158,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1664917971
+export SOURCE_DATE_EPOCH=1667579243
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition "
@@ -186,7 +186,7 @@ cd ../build32;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1664917971
+export SOURCE_DATE_EPOCH=1667579243
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/p11-kit
 cp %{_builddir}/p11-kit-%{version}/COPYING %{buildroot}/usr/share/package-licenses/p11-kit/6745330da3e7bde244b20b96a42eae659644e731 || :

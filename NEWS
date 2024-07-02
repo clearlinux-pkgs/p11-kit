@@ -1,3 +1,57 @@
+0.25.4 (stable)
+* rpc: add support for recursive attributes [PR#624, PR#629, PR#631, PR#633]
+* p11-kit: add function to check run-time version of the library [PR#637]
+* p11-kit: expose version information through macros [PR#635]
+* p11-kit: add option to specify CKA_ID in generate-keypair and import-object commands [PR#615]
+* p11-kit: add --provider option to specify PKCS#11 module when using p11-kit commands [PR#611]
+* p11-kit: fix a bug where eddsa mechanism isn't recognized in generate-keypair [PR#617]
+* p11-kit: fallback to C_GetFunctionList when C_GetInterface returns CKR_FUNCTION_NOT_SUPPORTED [PR#622]
+* bug and build fixes [PR#603, PR#604, PR#605, PR#606, PR#609, PR#614, PR#616, PR#619, PR#627, PR#628, PR#632, PR#636, PR#639]
+
+0.25.3 (stable)
+* rpc: fix serialization of NULL mechanism pointer [PR#601]
+* fix meson build failure in macOS (appleframeworks not found) [PR#603]
+
+0.25.2 (stable)
+* fix error code checking of readpassphrase for --login option [PR#595]
+* build fixes [PR#594]
+* test fixes [PR#596]
+
+0.25.1 (stable)
+ * fix probing of C_GetInterface [PR#535]
+ * p11-kit: add command to list tokens [PR#581]
+ * p11-kit: add command to list mechanisms supported by a token [PR#576]
+ * p11-kit: add command to generate private-public keypair on a token [PR#551, PR#582]
+ * p11-kit: add commands to import/export certificates and public keys into/from a token [PR#543, PR#549, PR#568, PR#588]
+ * p11-kit: add commands to list and delete objects of a token [PR#533, PR#544, PR#571]
+ * p11-kit: add --login option to login into a token with object and profile management commands [PR#587]
+ * p11-kit: adjust behavior of PKCS#11 profile management commands [PR#558, PR#560, PR#583, PR#591]
+ * p11-kit: print PKCS#11 URIs in list-modules [PR#532]
+ * bug and build fixes [PR#528 PR#529, PR#534, PR#537, PR#540, PR#541, PR#545, PR#547, PR#550, PR#557, PR#572, PR#575, PR#579, PR#585, PR#586, PR#590]
+ * test fixes [PR#553, PR#580]
+
+0.25.0 (stable)
+ * add PKCS#11 3.0 support [PR#458, PR#461, PR#462, PR#463, PR#464, PR#467, PR#469, PR#470, PR#475, PR#485, PR#486]
+ * add support for profile objects [PR#479]
+ * add ability to adjust module and config paths at run-time via system environmental exports [PR#442]
+ * make terminal output nicer [PR#509, PR#510]
+ * p11-kit: add command to print merged configuration [PR#446, PR#489]
+ * p11-kit: add commands to list, add and delete profiles of a token [PR#500, PR#503, PR#506]
+ * trust: add command to check format of .p11-kit files [PR#476, PR#483]
+ * virtual: fix libffi type signatures for PKCS#11 3.0 functions [PR#492]
+ * server: fix umask setting when --group is specified [PR#478]
+ * server: check SHELL only when neither --sh nor --csh is specified [PR#438]
+ * rpc: use space string in C_InitToken [PR#514]
+ * rpc: fix two off-by-one errors identified by asan [PR#456]
+ * modules: make logging message more translatable [PR#436]
+ * pkcs11.h: support CRYPTOKI_GNU for IBM vendor mechanisms [PR#421]
+ * pkcs11.h: add IBM specific mechanism and attributes [PR#415]
+ * pkcs11.h: add ChaCha20/Salsa20 and Poly1305 mechanisms [PR#487]
+ * pkcs11.h: add AES-GCM mechanism parameters for message-based encryption [PR#481]
+ * po: update translations from Transifex [PR#439]
+ * bug and build fixes [PR#412, PR#414, PR#417, PR#418, PR#420, PR#426, PR#427, PR#428, PR#448, PR#451, PR#459, PR#496, PR#505, PR#511, PR#512, PR#513, PR#516, PR#517, PR#524, PR#521]
+ * test fixes [PR#424, PR#441, PR#444, PR#443, PR#460, PR#472, PR#474, PR#465, PR#473, PR#487, PR#499, PR#519, PR#525, PR#526]
+
 0.24.1 (stable)
  * rpc: Support protocol version negotiation [PR#371, PR#385]
  * proxy: Support copying attribute array recursively [PR#368]

@@ -9,7 +9,7 @@
 #
 Name     : p11-kit
 Version  : 0.25.5
-Release  : 73
+Release  : 74
 URL      : https://github.com/p11-glue/p11-kit/releases/download/0.25.5/p11-kit-0.25.5.tar.xz
 Source0  : https://github.com/p11-glue/p11-kit/releases/download/0.25.5/p11-kit-0.25.5.tar.xz
 Source1  : https://github.com/p11-glue/p11-kit/releases/download/0.25.5/p11-kit-0.25.5.tar.xz.sig
